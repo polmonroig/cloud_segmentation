@@ -6,6 +6,7 @@ from os.path import join
 import numpy as np
 
 
+
 # VARIABLES
 MODEL_DIR = "models/"
 DATA_DIR = "data/understanding_cloud_organization/"
@@ -45,7 +46,3 @@ def make_masks(labels, image_name, shape):
             masks[:, :, idx] = mask
 
     return masks
-
-
-
-

@@ -7,13 +7,13 @@ import utils
 
 def main():
 
-    x_train, y_train, x_val, y_val = get_train_val_set(utils.DATA_DIR, utils.TRAIN_LABELS)
-    print(len(x_val.drop_duplicates()))
-    print(len(x_train.drop_duplicates()))
-    print(len(x_val))
-    print(len(x_train))
+    x_train, y_train, x_val, y_val = get_train_val_set(utils.TRAIN_LABELS)
+    transform = None
+    shape = (1400, 2100, 3)
+    train_dataset = ImageDataset(utils.TRAIN_IMAGES, x_train, y_train, transform , shape)
+    val_dataset = ImageDataset(utils.TRAIN_IMAGES, x_val, y_val, transform, shape)
 
-
+    model = SegNet()
 
 
 

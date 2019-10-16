@@ -16,7 +16,7 @@ def main():
         print("Running on cpu")
     # define hyper-paremeters
     batch_size = 2
-    learning_rate = 0.1
+    learning_rate = 0.01
     n_epochs = 1
 
     # Setup image transforms and data augmentation
@@ -38,8 +38,11 @@ def main():
     model = SegNet()
     model.to(device)
 
-    inputs, classes = next(iter(data_loader))
-    out = model(inputs.to(device))
+
+
+    # inputs, classes = next(iter(data_loader))
+    # out = model(inputs.to(device))
+    # utils.show_image_with_masks(inputs[0], out[0])
 
     optimizer = optim.Adam(model.parameters(), learning_rate)
 

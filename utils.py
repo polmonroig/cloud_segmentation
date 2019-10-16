@@ -5,6 +5,8 @@
 from os.path import join
 import numpy as np
 from torchvision import transforms
+from torchvision.transforms import ToPILImage
+import matplotlib.pyplot as plt
 
 
 
@@ -53,10 +55,23 @@ def get_transforms(is_train):
     transforms_list = []
     transforms_list.append(transforms.Resize((350, 525)))
     transforms_list.append(transforms.ToTensor())
-    transforms_list.append(
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    )
+    #transforms_list.append(
+    #    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    #)
     if is_train:
         transforms_list.append(transforms.RandomHorizontalFlip(0.5))
     return transforms.Compose(transforms_list)
 
+
+def show_image_with_masks(image, masks):
+    unloader = ToPILImage()
+    image = image.cpu().clone()
+    image = image.squeeze(0)
+    image = unloader(image)
+    for mask in masks:
+        mask = mask.cpu().clone()
+        mask = mask.squeeze(0)
+        mask = unloader(mask)
+        plt.imshow(image)
+        plt.imshow(mask, alpha=0.5, cmap='gray')
+        plt.show()

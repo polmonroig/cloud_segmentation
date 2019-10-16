@@ -7,6 +7,7 @@ import numpy as np
 import itertools
 import torch
 import utils
+import matplotlib.pyplot as plt
 
 
 class ImageDataset(Dataset):
@@ -21,7 +22,7 @@ class ImageDataset(Dataset):
 
     def __getitem__(self, item):
         # The nth label of the nth image is n * 4 -> 4 labels per image
-        masks = self.get_masks(self.y[item * 4:item * 4 + 3])
+        masks = self.get_masks(self.y[item * 4:item * 4 + 4])
         image = Image.open(join(self.root, self.x[item]))
 
         if self.transforms is not None:
@@ -33,15 +34,15 @@ class ImageDataset(Dataset):
         return len(self.x)
 
     def get_masks(self, encoded_masks):
-        masks = np.zeros((self.shape[0], self.shape[1], 4), dtype=np.float32)
+        masks = np.zeros((4, self.shape[0], self.shape[1]), dtype=np.float32)
         for idx, label in enumerate(encoded_masks.values):
             if label is not np.nan:
                 mask = utils.rle2mask(label, self.shape)
-                masks[:, :, idx] = mask
-        resized_masks = np.zeros((350, 525, 4), dtype=np.float32)
-        for idx in range(4):
-            resized_masks[:, :, idx] = resize(masks[:, :, idx], (525, 350))
+                masks[idx, :, :] = mask
+        resized_masks = np.zeros((4, 350, 525), dtype=np.float32)
 
+        for idx in range(4):
+            resized_masks[idx, :, :] = resize(masks[idx, :, :], (525, 350))
         return torch.as_tensor(resized_masks, dtype=torch.float32)
 
 

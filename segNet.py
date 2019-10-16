@@ -1,6 +1,8 @@
 import torch
 import torch.nn as nn
 from torchvision.models import vgg19
+from utils import show_image_with_masks
+
 
 
 
@@ -38,12 +40,8 @@ class SegNet(nn.Module):
         self.pool5 = nn.MaxUnpool2d(kernel_size=2, stride=2, padding=0)
         self.conv6 = nn.Conv2d(in_channels=64, out_channels=4,
                                kernel_size=3, stride=1, padding=1)
+        self.logits = nn.Sigmoid()
 
-
-
-
-    def train(self):
-        self.conv1.train()
 
     def forward(self, x):
         # forward encoder and save indices
@@ -85,28 +83,53 @@ class SegNet(nn.Module):
         # print("Pool5Output:", x.size())
         x = self.conv6(x)
         # print("FinalSize:", x.size())
-        return x
+        return self.logits(x)
 
 
 def train_step(model, data_loader, optimizer, device):
-    model = model.train()
-    criterion = nn.CrossEntropyLoss()
+    model.train()
+    criterion = nn.BCELoss()
     for i, data in enumerate(data_loader):
         optimizer.zero_grad()
         image, target = data
         image = image.to(device)
         target = target.to(device)
         out = model(image)
-        loss = criterion(out, target)
-        loss.backward()
+        loss_fish = criterion(out[:,0, :, :], target[:,0, :, :])
+        loss_flower = criterion(out[:,1, :, :], target[:,1, :, :])
+        loss_gravel = criterion(out[:,2, :, :], target[:,2, :, :])
+        loss_sugar = criterion(out[:,3, :, :], target[:,3, :, :])
+        loss_fish.backward(retain_graph=True)
+        loss_flower.backward(retain_graph=True)
+        loss_gravel.backward(retain_graph=True)
+        loss_sugar.backward(retain_graph=True)
         optimizer.step()
         if i % 50 == 0:
+            # show_image_with_masks(image[0], out[0])
             print("[" + str(i) + "/" + str(len(data_loader)))
+            acc1 = accuracy_score(target[:,0, :, :], out[:,0, :, :])
+            acc2 = accuracy_score(target[:,1, :, :], out[:,1, :, :])
+            acc3 = accuracy_score(target[:,2, :, :], out[:, 2])
+            acc4 = accuracy_score(target[:,3, :, :], out[:,3, :, :])
+            print("Fish Loss/Accuracy:", loss_fish.item(), "/", acc1)
+            print("Flower Loss/Accuracy:", loss_flower.item(),"/", acc2)
+            print("Gravel Loss/Accuracy:", loss_gravel.item(), "/", acc3)
+            print("Sugar Loss/Accuracy:", loss_sugar.item(),"/", acc4)
+            print("Total Loss/Accuracy:", (loss_sugar.item() + loss_flower.item() +
+                                           loss_gravel.item() + loss_fish.item()) / 4, "/",
+                                            (acc1 + acc2 + acc3 + acc4) / 4)
+
+
+def accuracy_score(y_true, y_pred):
+    total = 1
+    for a in y_pred.size():
+        total *= a
+    return ((y_true.eq(y_pred.long())).sum() / total).item()
 
 
 def eval_step(model, data_loader_val, device):
-    model = model.eval()
-    criterion = nn.CrossEntropyLoss()
+    model.eval()
+    criterion = nn.BCELoss()
     for i, data in enumerate(data_loader_val):
         image, target = data
         image = image.to(device)

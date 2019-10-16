@@ -73,5 +73,9 @@ def show_image_with_masks(image, masks):
         mask = mask.squeeze(0)
         mask = unloader(mask)
         plt.imshow(image)
-        plt.imshow(mask, alpha=0.5, cmap='gray')
+        plt.imshow(mask, alpha=0.9, cmap='gray')
         plt.show()
+
+
+def save_model(model):
+    return None

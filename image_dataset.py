@@ -61,5 +61,5 @@ def get_train_val_set(label_dir, val=0.2):
     val_x = encodings[~msk]['Image_Label'].drop_duplicates()
     val_y = encodings[~msk]['EncodedPixels']
     return np.array(train_x.values), train_y, \
-           np.array(val_x.values), val_y.values
+           np.array(val_x.values), val_y
 

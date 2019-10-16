@@ -1,0 +1,1235 @@
+{
+    "graph_0": {
+        "_type": "graph",
+        "format": "torch",
+        "nodes": [
+            {
+                "name": "encoder.0",
+                "id": 140402202221904,
+                "class_name": "Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            64,
+                            3,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            64
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        64,
+                        350,
+                        525
+                    ]
+                ],
+                "num_parameters": [
+                    1728,
+                    64
+                ]
+            },
+            {
+                "name": "encoder.1",
+                "id": 140402465876816,
+                "class_name": "ReLU(inplace=True)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        64,
+                        350,
+                        525
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "encoder.2",
+                "id": 140402465877328,
+                "class_name": "Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            64,
+                            64,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            64
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        64,
+                        350,
+                        525
+                    ]
+                ],
+                "num_parameters": [
+                    36864,
+                    64
+                ]
+            },
+            {
+                "name": "encoder.3",
+                "id": 140402232713488,
+                "class_name": "ReLU(inplace=True)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        64,
+                        350,
+                        525
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "encoder.4",
+                "id": 140402232713296,
+                "class_name": "MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        64,
+                        175,
+                        262
+                    ],
+                    [
+                        8,
+                        64,
+                        175,
+                        262
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "encoder.5",
+                "id": 140402232713680,
+                "class_name": "Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            128,
+                            64,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            128
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        128,
+                        175,
+                        262
+                    ]
+                ],
+                "num_parameters": [
+                    73728,
+                    128
+                ]
+            },
+            {
+                "name": "encoder.6",
+                "id": 140402232713360,
+                "class_name": "ReLU(inplace=True)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        128,
+                        175,
+                        262
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "encoder.7",
+                "id": 140402232713808,
+                "class_name": "Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            128,
+                            128,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            128
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        128,
+                        175,
+                        262
+                    ]
+                ],
+                "num_parameters": [
+                    147456,
+                    128
+                ]
+            },
+            {
+                "name": "encoder.8",
+                "id": 140402232713744,
+                "class_name": "ReLU(inplace=True)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        128,
+                        175,
+                        262
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "encoder.9",
+                "id": 140402232713936,
+                "class_name": "MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        128,
+                        87,
+                        131
+                    ],
+                    [
+                        8,
+                        128,
+                        87,
+                        131
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "encoder.10",
+                "id": 140402232714000,
+                "class_name": "Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            256,
+                            128,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            256
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        256,
+                        87,
+                        131
+                    ]
+                ],
+                "num_parameters": [
+                    294912,
+                    256
+                ]
+            },
+            {
+                "name": "encoder.11",
+                "id": 140402232714064,
+                "class_name": "ReLU(inplace=True)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        256,
+                        87,
+                        131
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "encoder.12",
+                "id": 140402232714192,
+                "class_name": "Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            256,
+                            256,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            256
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        256,
+                        87,
+                        131
+                    ]
+                ],
+                "num_parameters": [
+                    589824,
+                    256
+                ]
+            },
+            {
+                "name": "encoder.13",
+                "id": 140402232714256,
+                "class_name": "ReLU(inplace=True)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        256,
+                        87,
+                        131
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "encoder.14",
+                "id": 140402232714384,
+                "class_name": "Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            256,
+                            256,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            256
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        256,
+                        87,
+                        131
+                    ]
+                ],
+                "num_parameters": [
+                    589824,
+                    256
+                ]
+            },
+            {
+                "name": "encoder.15",
+                "id": 140402232714448,
+                "class_name": "ReLU(inplace=True)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        256,
+                        87,
+                        131
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "encoder.16",
+                "id": 140402232714576,
+                "class_name": "Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            256,
+                            256,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            256
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        256,
+                        87,
+                        131
+                    ]
+                ],
+                "num_parameters": [
+                    589824,
+                    256
+                ]
+            },
+            {
+                "name": "encoder.17",
+                "id": 140402232714640,
+                "class_name": "ReLU(inplace=True)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        256,
+                        87,
+                        131
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "encoder.18",
+                "id": 140402232714768,
+                "class_name": "MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        256,
+                        43,
+                        65
+                    ],
+                    [
+                        8,
+                        256,
+                        43,
+                        65
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "encoder.19",
+                "id": 140402232714832,
+                "class_name": "Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            512,
+                            256,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            512
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        43,
+                        65
+                    ]
+                ],
+                "num_parameters": [
+                    1179648,
+                    512
+                ]
+            },
+            {
+                "name": "encoder.20",
+                "id": 140402232714896,
+                "class_name": "ReLU(inplace=True)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        43,
+                        65
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "encoder.21",
+                "id": 140402232715024,
+                "class_name": "Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            512,
+                            512,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            512
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        43,
+                        65
+                    ]
+                ],
+                "num_parameters": [
+                    2359296,
+                    512
+                ]
+            },
+            {
+                "name": "encoder.22",
+                "id": 140402232715088,
+                "class_name": "ReLU(inplace=True)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        43,
+                        65
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "encoder.23",
+                "id": 140402232715216,
+                "class_name": "Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            512,
+                            512,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            512
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        43,
+                        65
+                    ]
+                ],
+                "num_parameters": [
+                    2359296,
+                    512
+                ]
+            },
+            {
+                "name": "encoder.24",
+                "id": 140402232715280,
+                "class_name": "ReLU(inplace=True)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        43,
+                        65
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "encoder.25",
+                "id": 140402232715408,
+                "class_name": "Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            512,
+                            512,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            512
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        43,
+                        65
+                    ]
+                ],
+                "num_parameters": [
+                    2359296,
+                    512
+                ]
+            },
+            {
+                "name": "encoder.26",
+                "id": 140402232715472,
+                "class_name": "ReLU(inplace=True)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        43,
+                        65
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "encoder.27",
+                "id": 140402232715600,
+                "class_name": "MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        21,
+                        32
+                    ],
+                    [
+                        8,
+                        512,
+                        21,
+                        32
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "encoder.28",
+                "id": 140402232715664,
+                "class_name": "Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            512,
+                            512,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            512
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        21,
+                        32
+                    ]
+                ],
+                "num_parameters": [
+                    2359296,
+                    512
+                ]
+            },
+            {
+                "name": "encoder.29",
+                "id": 140402232715728,
+                "class_name": "ReLU(inplace=True)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        21,
+                        32
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "encoder.30",
+                "id": 140402232715856,
+                "class_name": "Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            512,
+                            512,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            512
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        21,
+                        32
+                    ]
+                ],
+                "num_parameters": [
+                    2359296,
+                    512
+                ]
+            },
+            {
+                "name": "encoder.31",
+                "id": 140402232715920,
+                "class_name": "ReLU(inplace=True)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        21,
+                        32
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "encoder.32",
+                "id": 140402232716048,
+                "class_name": "Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            512,
+                            512,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            512
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        21,
+                        32
+                    ]
+                ],
+                "num_parameters": [
+                    2359296,
+                    512
+                ]
+            },
+            {
+                "name": "encoder.33",
+                "id": 140402232716112,
+                "class_name": "ReLU(inplace=True)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        21,
+                        32
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "encoder.34",
+                "id": 140402232716240,
+                "class_name": "Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            512,
+                            512,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            512
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        21,
+                        32
+                    ]
+                ],
+                "num_parameters": [
+                    2359296,
+                    512
+                ]
+            },
+            {
+                "name": "encoder.35",
+                "id": 140402232716304,
+                "class_name": "ReLU(inplace=True)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        21,
+                        32
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "encoder.36",
+                "id": 140402232716432,
+                "class_name": "MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        10,
+                        16
+                    ],
+                    [
+                        8,
+                        512,
+                        10,
+                        16
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "conv1",
+                "id": 140403870691408,
+                "class_name": "Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            512,
+                            512,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            512
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        10,
+                        16
+                    ]
+                ],
+                "num_parameters": [
+                    2359296,
+                    512
+                ]
+            },
+            {
+                "name": "relu1",
+                "id": 140402467008784,
+                "class_name": "ReLU(inplace=True)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        10,
+                        16
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "pool1",
+                "id": 140402202222352,
+                "class_name": "MaxUnpool2d(kernel_size=(2, 2), stride=(2, 2), padding=(0, 0))",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        21,
+                        32
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "conv2",
+                "id": 140402475723792,
+                "class_name": "Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            512,
+                            512,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            512
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        21,
+                        32
+                    ]
+                ],
+                "num_parameters": [
+                    2359296,
+                    512
+                ]
+            },
+            {
+                "name": "relu2",
+                "id": 140402466073744,
+                "class_name": "ReLU(inplace=True)",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        21,
+                        32
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "pool2",
+                "id": 140402348181776,
+                "class_name": "MaxUnpool2d(kernel_size=(2, 2), stride=(2, 2), padding=(0, 0))",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        512,
+                        43,
+                        65
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "conv3",
+                "id": 140402202319056,
+                "class_name": "Conv2d(512, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            256,
+                            512,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            256
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        256,
+                        43,
+                        65
+                    ]
+                ],
+                "num_parameters": [
+                    1179648,
+                    256
+                ]
+            },
+            {
+                "name": "pool3",
+                "id": 140402202319376,
+                "class_name": "MaxUnpool2d(kernel_size=(2, 2), stride=(2, 2), padding=(0, 0))",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        256,
+                        87,
+                        131
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "conv4",
+                "id": 140402202318928,
+                "class_name": "Conv2d(256, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            128,
+                            256,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            128
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        128,
+                        87,
+                        131
+                    ]
+                ],
+                "num_parameters": [
+                    294912,
+                    128
+                ]
+            },
+            {
+                "name": "pool4",
+                "id": 140402202318736,
+                "class_name": "MaxUnpool2d(kernel_size=(2, 2), stride=(2, 2), padding=(0, 0))",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        128,
+                        175,
+                        262
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "conv5",
+                "id": 140402202318608,
+                "class_name": "Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            64,
+                            128,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            64
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        64,
+                        175,
+                        262
+                    ]
+                ],
+                "num_parameters": [
+                    73728,
+                    64
+                ]
+            },
+            {
+                "name": "pool5",
+                "id": 140402202318544,
+                "class_name": "MaxUnpool2d(kernel_size=(2, 2), stride=(2, 2), padding=(0, 0))",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        64,
+                        350,
+                        525
+                    ]
+                ],
+                "num_parameters": []
+            },
+            {
+                "name": "conv6",
+                "id": 140402202320784,
+                "class_name": "Conv2d(64, 4, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+                "parameters": [
+                    [
+                        "weight",
+                        [
+                            4,
+                            64,
+                            3,
+                            3
+                        ]
+                    ],
+                    [
+                        "bias",
+                        [
+                            4
+                        ]
+                    ]
+                ],
+                "output_shape": [
+                    [
+                        8,
+                        4,
+                        350,
+                        525
+                    ]
+                ],
+                "num_parameters": [
+                    2304,
+                    4
+                ]
+            },
+            {
+                "name": "logits",
+                "id": 140402202319952,
+                "class_name": "Sigmoid()",
+                "parameters": [],
+                "output_shape": [
+                    [
+                        8,
+                        4,
+                        350,
+                        525
+                    ]
+                ],
+                "num_parameters": []
+            }
+        ],
+        "edges": []
+    },
+    "accuracy_sugar": 0,
+    "accuracy_gravel": 0,
+    "loss_gravel": 0.6788002848625183,
+    "loss_fish": 0.6934664249420166,
+    "loss_flower": 0.6993984580039978,
+    "accuracy_flower": 0,
+    "_runtime": 15.956241130828857,
+    "_timestamp": 1571243379.4454741,
+    "accuracy_fish": 0,
+    "accuracy_total": 0.0,
+    "loss_total": 0.691352054476738,
+    "loss_sugar": 0.6937430500984192,
+    "_step": 0
+}

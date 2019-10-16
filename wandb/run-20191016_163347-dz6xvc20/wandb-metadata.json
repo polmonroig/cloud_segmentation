@@ -1,0 +1,26 @@
+{
+    "root": "/home/pol/Documents/ml/cloud_segmentation",
+    "program": "/home/pol/Documents/ml/cloud_segmentation/main.py",
+    "git": {
+        "remote": "https://github.com/polmonroig/cloud_segmentation.git",
+        "commit": "59d065c8142aa960cfc26c645907a967eb7e1d41"
+    },
+    "email": "polmonroig@yahoo.es",
+    "startedAt": "2019-10-16T16:33:47.413855",
+    "host": "localhost.localdomain",
+    "username": "pol",
+    "executable": "/home/pol/Documents/ml/env3.7/bin/python3.7",
+    "os": "Linux-5.2.13-200.fc30.x86_64-x86_64-with-fedora-30-Thirty",
+    "python": "3.7.4",
+    "gpu": "GeForce GTX 970",
+    "gpu_count": 1,
+    "cpu_count": 4,
+    "cuda": "10.0.130",
+    "args": [],
+    "state": "failed",
+    "jobType": null,
+    "mode": "run",
+    "project": "cloud_segmentation",
+    "heartbeatAt": "2019-10-16T16:44:51.846310",
+    "exitcode": 1
+}

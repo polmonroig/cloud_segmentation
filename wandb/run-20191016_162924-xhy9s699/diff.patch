@@ -1,0 +1,182 @@
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+index 54052db..9b02e1a 100644
+--- a/.idea/workspace.xml
++++ b/.idea/workspace.xml
+@@ -87,7 +87,9 @@
+       <workItem from="1571079677428" duration="4907000" />
+       <workItem from="1571211260475" duration="8652000" />
+       <workItem from="1571225108120" duration="10686000" />
+-      <workItem from="1571236623274" duration="2777000" />
++      <workItem from="1571236623274" duration="4630000" />
++      <workItem from="1571242125139" duration="635000" />
++      <workItem from="1571243284494" duration="77000" />
+     </task>
+     <servers />
+   </component>
+@@ -107,7 +109,18 @@
+       </map>
+     </option>
+   </component>
++  <component name="XDebuggerManager">
++    <breakpoint-manager>
++      <breakpoints>
++        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
++          <url>file://$PROJECT_DIR$/utils.py</url>
++          <line>8</line>
++          <option name="timeStamp" value="1" />
++        </line-breakpoint>
++      </breakpoints>
++    </breakpoint-manager>
++  </component>
+   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+-    <SUITE FILE_PATH="coverage/cloud_segmentation$main.coverage" NAME="main Coverage Results" MODIFIED="1571239303856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
++    <SUITE FILE_PATH="coverage/cloud_segmentation$main.coverage" NAME="main Coverage Results" MODIFIED="1571243338211" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+   </component>
+ </project>
+\ No newline at end of file
+diff --git a/image_dataset.py b/image_dataset.py
+index 5c57bcf..2c9ccdf 100644
+--- a/image_dataset.py
++++ b/image_dataset.py
+@@ -61,5 +61,5 @@ def get_train_val_set(label_dir, val=0.2):
+     val_x = encodings[~msk]['Image_Label'].drop_duplicates()
+     val_y = encodings[~msk]['EncodedPixels']
+     return np.array(train_x.values), train_y, \
+-           np.array(val_x.values), val_y.values
++           np.array(val_x.values), val_y
+ 
+diff --git a/main.py b/main.py
+index b1c1bf5..d81a407 100644
+--- a/main.py
++++ b/main.py
+@@ -8,6 +8,7 @@ import utils
+ 
+ def main():
+ 
++    wandb.init(project="cloud_segmentation")
+     # Setup device selection
+     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
+     if torch.cuda.is_available():
+@@ -15,7 +16,7 @@ def main():
+     else:
+         print("Running on cpu")
+     # define hyper-paremeters
+-    batch_size = 2
++    batch_size = 8
+     learning_rate = 0.01
+     n_epochs = 1
+ 
+@@ -36,11 +37,10 @@ def main():
+ 
+     # Define and train model
+     model = SegNet()
++    wandb.watch(model, log="all")
+     model.to(device)
+ 
+-
+-
+-    # inputs, classes = next(iter(data_loader))
++    # inputs, classes = next(iter(data_loader_val))
+     # out = model(inputs.to(device))
+     # utils.show_image_with_masks(inputs[0], out[0])
+ 
+@@ -51,6 +51,8 @@ def main():
+         train_step(model, data_loader, optimizer, device)
+         eval_step(model, data_loader_val, device)
+ 
++    # save model to W&B
++    torch.save(model.state_dict, wandb.run.dir)
+ 
+ if __name__ == "__main__":
+-    main()
+\ No newline at end of file
++    main()
+diff --git a/segNet.py b/segNet.py
+index e35dc51..535ecbd 100644
+--- a/segNet.py
++++ b/segNet.py
+@@ -1,9 +1,8 @@
+ import torch
+ import torch.nn as nn
+ from torchvision.models import vgg19
+-from utils import show_image_with_masks
+-
+-
++from utils import show_image_with_masks, save_model
++import wandb
+ 
+ 
+ class SegNet(nn.Module):
+@@ -111,13 +110,21 @@ def train_step(model, data_loader, optimizer, device):
+             acc2 = accuracy_score(target[:,1, :, :], out[:,1, :, :])
+             acc3 = accuracy_score(target[:,2, :, :], out[:, 2])
+             acc4 = accuracy_score(target[:,3, :, :], out[:,3, :, :])
++            loss_total = (loss_sugar.item() + loss_flower.item() + loss_gravel.item() + loss_fish.item()) / 4
++            acc_total = (acc1 + acc2 + acc3 + acc4) / 4
+             print("Fish Loss/Accuracy:", loss_fish.item(), "/", acc1)
+             print("Flower Loss/Accuracy:", loss_flower.item(),"/", acc2)
+             print("Gravel Loss/Accuracy:", loss_gravel.item(), "/", acc3)
+             print("Sugar Loss/Accuracy:", loss_sugar.item(),"/", acc4)
+-            print("Total Loss/Accuracy:", (loss_sugar.item() + loss_flower.item() +
+-                                           loss_gravel.item() + loss_fish.item()) / 4, "/",
+-                                            (acc1 + acc2 + acc3 + acc4) / 4)
++            print("Total Loss/Accuracy:", loss_total, "/", acc_total)
++            # log data into wandb
++            wandb.log({"loss_fish": loss_fish.item(), "accuracy_fish": acc1,
++                       "loss_flower": loss_flower.item(), "accuracy_flower": acc2,
++                       "loss_gravel": loss_gravel.item(), "accuracy_gravel": acc3,
++                       "loss_sugar": loss_sugar.item(), "accuracy_sugar": acc4,
++                       "loss_sugar": loss_sugar.item(), "accuracy_sugar": acc4,
++                       "loss_total": loss_total, "accuracy_total":acc_total})
++
+ 
+ 
+ def accuracy_score(y_true, y_pred):
+@@ -135,6 +142,28 @@ def eval_step(model, data_loader_val, device):
+         image = image.to(device)
+         target = target.to(device)
+         out = model(image)
+-        loss = criterion(out, target)
++        loss_fish = criterion(out[:, 0, :, :], target[:, 0, :, :])
++        loss_flower = criterion(out[:, 1, :, :], target[:, 1, :, :])
++        loss_gravel = criterion(out[:, 2, :, :], target[:, 2, :, :])
++        loss_sugar = criterion(out[:, 3, :, :], target[:, 3, :, :])
+         if i % 50 == 0:
+-            print("[" + str(i) + "/" + str(len(data_loader_val)))
+\ No newline at end of file
++            print("[" + str(i) + "/" + str(len(data_loader_val)))
++            acc1 = accuracy_score(target[:, 0, :, :], out[:, 0, :, :])
++            acc2 = accuracy_score(target[:, 1, :, :], out[:, 1, :, :])
++            acc3 = accuracy_score(target[:, 2, :, :], out[:, 2])
++            acc4 = accuracy_score(target[:, 3, :, :], out[:, 3, :, :])
++            loss_total = (loss_sugar.item() + loss_flower.item() + loss_gravel.item() + loss_fish.item()) / 4
++            acc_total = (acc1 + acc2 + acc3 + acc4) / 4
++            print("Fish Loss/Accuracy:", loss_fish.item(), "/", acc1)
++            print("Flower Loss/Accuracy:", loss_flower.item(), "/", acc2)
++            print("Gravel Loss/Accuracy:", loss_gravel.item(), "/", acc3)
++            print("Sugar Loss/Accuracy:", loss_sugar.item(), "/", acc4)
++            print("Total Loss/Accuracy:", loss_total, "/", acc_total)
++            # log data into wandb
++            wandb.log({"val_loss_fish": loss_fish.item(), "val_accuracy_fish":acc1,
++                       "val_loss_flower": loss_flower.item(), "val_accuracy_flower":acc2,
++                       "val_loss_gravel": loss_gravel.item(), "val_accuracy_gravel":acc3,
++                       "val_loss_sugar": loss_sugar.item(), "val_accuracy_sugar":acc4,
++                       "val_loss_sugar": loss_sugar.item(), "val_accuracy_sugar":acc4,
++                       "loss_total": loss_total, "accuracy_total":acc_total})
++
+diff --git a/utils.py b/utils.py
+index da6330f..7a0170a 100644
+--- a/utils.py
++++ b/utils.py
+@@ -74,4 +74,8 @@ def show_image_with_masks(image, masks):
+         mask = unloader(mask)
+         plt.imshow(image)
+         plt.imshow(mask, alpha=0.5, cmap='gray')
+-        plt.show()
+\ No newline at end of file
++        plt.show()
++
++
++def save_model(model):
++    return None
+\ No newline at end of file

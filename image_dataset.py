@@ -10,28 +10,33 @@ import utils
 
 class ImageDataset(Dataset):
 
-    def __init__(self, root, x, y, transform, shape):
+    def __init__(self, root, x, y, transforms, shape):
         super(ImageDataset, self).__init__()
         self.x = x
         self.y = y
         self.shape = shape
         self.root = root
+        self.transforms = transforms
 
     def __getitem__(self, item):
         # The nth label of the nth image is n * 4 -> 4 labels per image
         masks = self.get_masks(self.y[item * 4:item * 4 + 3])
         image = Image.open(join(self.root, self.x[item]))
 
-        return item, masks 
+        if self.transforms is not None:
+            image = self.transforms(image)
+
+        return image, masks
 
     def __len__(self):
-        return 0
+        return len(self.x)
 
     def get_masks(self, encoded_masks):
         masks = torch.zeros((self.shape[0], self.shape[1], 4), dtype=torch.float32)
         for idx, label in enumerate(encoded_masks.values):
             if label is not np.nan:
                 mask = utils.rle2mask(label, self.shape)
+                mask = torch.as_tensor(mask, dtype=torch.float32)
                 masks[:, :, idx] = mask
 
         return masks
@@ -51,5 +56,6 @@ def get_train_val_set(label_dir, val=0.2):
     train_y = encodings[msk]['EncodedPixels']
     val_x = encodings[~msk]['Image_Label'].drop_duplicates()
     val_y = encodings[~msk]['EncodedPixels']
-    return train_x, train_y, val_x, val_y
+    return np.array(train_x.values), train_y, \
+           np.array(val_x.values), val_y.values
 

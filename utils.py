@@ -4,6 +4,7 @@
 """
 from os.path import join
 import numpy as np
+from torchvision import transforms
 
 
 
@@ -46,3 +47,16 @@ def make_masks(labels, image_name, shape):
             masks[:, :, idx] = mask
 
     return masks
+
+
+def get_transforms(is_train):
+    transforms_list = []
+    transforms_list.append(transforms.Resize((350, 525)))
+    transforms_list.append(transforms.ToTensor())
+    transforms_list.append(
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    )
+    if is_train:
+        transforms_list.append(transforms.RandomHorizontalFlip(0.5))
+    return transforms.Compose(transforms_list)
+

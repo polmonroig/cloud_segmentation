@@ -1,4 +1,5 @@
 from PIL import Image
+from cv2 import resize
 from torch.utils.data import Dataset
 from os.path import join
 import pandas as pd
@@ -32,14 +33,16 @@ class ImageDataset(Dataset):
         return len(self.x)
 
     def get_masks(self, encoded_masks):
-        masks = torch.zeros((self.shape[0], self.shape[1], 4), dtype=torch.float32)
+        masks = np.zeros((self.shape[0], self.shape[1], 4), dtype=np.float32)
         for idx, label in enumerate(encoded_masks.values):
             if label is not np.nan:
                 mask = utils.rle2mask(label, self.shape)
-                mask = torch.as_tensor(mask, dtype=torch.float32)
                 masks[:, :, idx] = mask
+        resized_masks = np.zeros((350, 525, 4), dtype=np.float32)
+        for idx in range(4):
+            resized_masks[:, :, idx] = resize(masks[:, :, idx], (525, 350))
 
-        return masks
+        return torch.as_tensor(resized_masks, dtype=torch.float32)
 
 
 def extend4(msk):

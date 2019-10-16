@@ -12,11 +12,12 @@ def main():
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
     if torch.cuda.is_available():
         print("Running on gpu")
-
+    else:
+        print("Running on cpu")
     # define hyper-paremeters
     batch_size = 2
     learning_rate = 0.1
-    n_epochs = 0
+    n_epochs = 1
 
     # Setup image transforms and data augmentation
     transforms = utils.get_transforms(False)
@@ -36,7 +37,7 @@ def main():
     # Define and train model
     model = SegNet()
     model.to(device)
-    print(model)
+
     inputs, classes = next(iter(data_loader))
     out = model(inputs.to(device))
 

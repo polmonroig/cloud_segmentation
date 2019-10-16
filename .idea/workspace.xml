@@ -6,7 +6,6 @@
       <change beforePath="$PROJECT_DIR$/image_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/image_dataset.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/segNet.py" beforeDir="false" afterPath="$PROJECT_DIR$/segNet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -85,7 +84,8 @@
       <workItem from="1570955101272" duration="4293000" />
       <workItem from="1571062500649" duration="6547000" />
       <workItem from="1571079677428" duration="4907000" />
-      <workItem from="1571211260475" duration="7980000" />
+      <workItem from="1571211260475" duration="8652000" />
+      <workItem from="1571225108120" duration="5837000" />
     </task>
     <servers />
   </component>
@@ -106,6 +106,6 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/cloud_segmentation$main.coverage" NAME="main Coverage Results" MODIFIED="1571219215019" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/cloud_segmentation$main.coverage" NAME="main Coverage Results" MODIFIED="1571230921088" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -41,13 +41,8 @@ def main():
     wandb.watch(model, log="all")
     model.to(device)
 
-    # inputs, classes = next(iter(data_loader_val))
-    # out = model(inputs.to(device))
-    # utils.show_image_with_masks(inputs[0], out[0])
-
     optimizer = optim.Adam(model.parameters(), learning_rate)
 
-    # torch.save(model.state_dict(), wandb.run.dir + "/model.pt")
     for epoch in range(n_epochs):
         print("Epoch:", epoch)
         train_step(model, data_loader, optimizer, device)

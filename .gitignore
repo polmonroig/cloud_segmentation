@@ -108,3 +108,5 @@ data/
 
 # wandb tracking
 wandb/
+
+submission.csv

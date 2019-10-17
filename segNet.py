@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from torchvision.models import vgg19
-from utils import show_image_with_masks, save_model
+from utils import show_image_with_masks
 import wandb
 
 

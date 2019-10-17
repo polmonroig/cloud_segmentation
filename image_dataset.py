@@ -7,22 +7,24 @@ import numpy as np
 import itertools
 import torch
 import utils
-import matplotlib.pyplot as plt
 
 
 class ImageDataset(Dataset):
 
-    def __init__(self, root, x, y, transforms, shape):
+    def __init__(self, root, x, y, transforms, shape, test=False):
         super(ImageDataset, self).__init__()
         self.x = x
         self.y = y
         self.shape = shape
         self.root = root
         self.transforms = transforms
+        self.test = test
 
     def __getitem__(self, item):
         # The nth label of the nth image is n * 4 -> 4 labels per image
-        masks = self.get_masks(self.y[item * 4:item * 4 + 4])
+        masks = self.x[item]
+        if not self.test:
+            masks = self.get_masks(self.y[item * 4:item * 4 + 4])
         image = Image.open(join(self.root, self.x[item]))
 
         if self.transforms is not None:

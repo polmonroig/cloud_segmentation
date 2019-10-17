@@ -8,6 +8,18 @@ To understand the clouds, cloud images where taken from space, the insititute ha
 following four types of clouds. 
 ![Alt text](images/cloud_types.png?raw=true "Cloud types")
 
+### Segmentation Process ###
+The segmentation process of the cloud dataset can be represented with the following image.
+![Alt text](images/cloud_segmentation_process.png?raw=true "Segementation process")
+First we need to decode the ground truth labels from the dataset, then we use a fully convolutional
+neural network to perform the segmentation, next we do a mask processing to ensure it only has values 
+of 0 or 1, by discarding values lower than a threshold and finally we join connected groups in the mask
+
+### Network architecture ###
+The network architecture used was an autoencoder where the encoder network was the pretained VGG19 
+network, the decoder was a symetrical network with the same number of pooling layers as the encoder 
+but with less convolutional layers. The loss function that was used is the Dice coefficient(2∗|X∩Y||X|+|Y|). 
+
 
 ### Where can I get the dataset? ###
 The original dataset was downloaded from NASA Worldview altough for the purpose of this 

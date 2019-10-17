@@ -7,6 +7,7 @@ import numpy as np
 from torchvision import transforms
 from torchvision.transforms import ToPILImage
 import matplotlib.pyplot as plt
+import cv2
 
 
 
@@ -62,20 +63,34 @@ def get_transforms(is_train):
         transforms_list.append(transforms.RandomHorizontalFlip(0.5))
     return transforms.Compose(transforms_list)
 
-
-def show_image_with_masks(image, masks):
+def conv_image(image):
     unloader = ToPILImage()
     image = image.cpu().clone()
     image = image.squeeze(0)
     image = unloader(image)
+    return image
+
+
+def show_image_with_masks(image, masks, alpha=0.9):
+    unloader = ToPILImage()
+    image = conv_image(image)
     for mask in masks:
         mask = mask.cpu().clone()
         mask = mask.squeeze(0)
         mask = unloader(mask)
         plt.imshow(image)
-        plt.imshow(mask, alpha=0.9, cmap='gray')
+        plt.imshow(mask, alpha=alpha, cmap='gray')
         plt.show()
 
 
-def save_model(model):
-    return None
+def post_process(probability, threshold, min_size):
+    mask = cv2.threshold(probability, threshold, 1, cv2.THRESH_BINARY)[1]
+    num_component, component = cv2.connectedComponents(mask.astype(np.uint8))
+    predictions = np.zeros((350, 525), np.float32)
+    num = 0
+    for c in range(1, num_component):
+        p = (component == c)
+        if p.sum() > min_size:
+            predictions[p] = 1
+            num += 1
+    return predictions, num

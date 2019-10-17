@@ -93,9 +93,21 @@ class SegNet(nn.Module):
         return self.logits(x)
 
 
+def dice_loss(pred, target):
+    smooth = 1.
+    # have to use contiguous since they may from a torch.view op
+    iflat = pred.contiguous().view(-1)
+    tflat = target.contiguous().view(-1)
+    intersection = (iflat * tflat).sum()
+
+    A_sum = torch.sum(iflat * iflat)
+    B_sum = torch.sum(tflat * tflat)
+
+    return 1 - ((2. * intersection + smooth) / (A_sum + B_sum + smooth))
+
 def train_step(model, data_loader, optimizer, device):
     model.train()
-    criterion = nn.BCELoss()
+    criterion = dice_loss
     for i, data in enumerate(data_loader):
         optimizer.zero_grad()
         image, target = data
@@ -139,12 +151,12 @@ def accuracy_score(y_true, y_pred):
     total = 1
     for a in y_pred.size():
         total *= a
-    return ((y_true.eq(y_pred.long())).sum() / total).item()
+    return ((y_true.eq(y_pred.long())).sum() / float(total)).item()
 
 
 def eval_step(model, data_loader_val, device):
     model.eval()
-    criterion = nn.BCELoss()
+    criterion = dice_loss
     for i, data in enumerate(data_loader_val):
         image, target = data
         image = image.to(device)

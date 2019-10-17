@@ -7,7 +7,7 @@ import utils
 
 
 def main():
-
+    # CHANGE LOSS FUNCTION TO CORRECT ONE
     wandb.init(project="cloud_segmentation")
     # Setup device selection
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
@@ -46,14 +46,15 @@ def main():
     # utils.show_image_with_masks(inputs[0], out[0])
 
     optimizer = optim.Adam(model.parameters(), learning_rate)
-    # torch.save(model, wandb.run.dir + "/model.pt")
+
+    # torch.save(model.state_dict(), wandb.run.dir + "/model.pt")
     for epoch in range(n_epochs):
         print("Epoch:", epoch)
         train_step(model, data_loader, optimizer, device)
         eval_step(model, data_loader_val, device)
 
     # save model to W&B
-    # torch.save(model.state_dict, wandb.run.dir + "/model.pt")
+    torch.save(model.state_dict(), wandb.run.dir + "/model.pt")
 
 if __name__ == "__main__":
     main()

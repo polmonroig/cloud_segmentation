@@ -9,7 +9,9 @@ following four types of clouds.
 ![Alt text](images/cloud_types.png?raw=true "Cloud types")
 
 ### Segmentation Process ###
-The segmentation process of the cloud dataset can be represented with the following image.
+The segmentation process of the cloud dataset can be represented with the following image. Where from an image we get 
+four different segmentations, one per class. The left column represents the segmentation of the fish cloud type and the right of the 
+sugar cloud type, where flower and gravel where omitted because their presence is not in the original image. 
 ![Alt text](images/cloud_segmentation_process.png?raw=true "Segementation process")
 First we need to decode the ground truth labels from the dataset, then we use a fully convolutional
 neural network to perform the segmentation, next we do a mask processing to ensure it only has values 

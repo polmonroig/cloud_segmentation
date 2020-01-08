@@ -22,7 +22,7 @@ The network architecture used was an encoder-decoder where the encoder network w
 network, the decoder was a symetrical network with the same number of pooling layers as the encoder
 but with less convolutional layers. The loss function that was used is the Dice coefficient(2∗|X∩Y||X|+|Y|).
 
-## Model tracking ##
+### Model tracking ###
 The development of the model training is tracked using W&B in [link](https://app.wandb.ai/polmonroig/cloud_segmentation)
 
 ### Where can I get the dataset? ###

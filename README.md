@@ -21,6 +21,7 @@ of 0 or 1, by discarding values lower than a threshold and finally we join conne
 The network architecture used was an encoder-decoder where the encoder network was the pretained VGG19
 network, the decoder was a symetrical network with the same number of pooling layers as the encoder
 but with less convolutional layers. The loss function that was used is the Dice coefficient(2∗|X∩Y||X|+|Y|).
+![Alt text](images/convnet.png)
 
 ### Model tracking ###
 The development of the model training is tracked using W&B in [link](https://app.wandb.ai/polmonroig/cloud_segmentation)

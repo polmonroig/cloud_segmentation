@@ -87,7 +87,7 @@ pathtools==0.1.2
 pexpect==4.7.0
 pickleshare==0.7.5
 pillow==6.2.0
-pip==19.2.3
+pip==21.1
 plac==0.9.6
 plotly==4.1.1
 portend==2.5
